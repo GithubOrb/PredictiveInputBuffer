@@ -1,23 +1,23 @@
-
 name: Build Geode Mod
-
+ 
 on:
   workflow_dispatch:
   push:
     branches:
-      - main
-
+      - "**"
+ 
 jobs:
   build:
+    name: Windows
     runs-on: windows-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Build mod
+      - uses: actions/checkout@v5
+ 
+      - name: Build the mod
         uses: geode-sdk/build-geode-mod@main
         with:
-          sdk: given
-          target: Win64
-          use-lto: false
-          use-cpm-cache: false
+          # Solo compilamos Windows, porque mod.json solo declara "win".
+          # Si sigue habiendo conflicto de versiones SDK/bindings, descomenta:
+          # sdk: nightly
+          build-config: Release
+ 
